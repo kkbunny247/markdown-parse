@@ -3,7 +3,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
-
 public class MarkdownParse {
     public static ArrayList<String> getLinks(String markdown) {
         ArrayList<String> toReturn = new ArrayList<>();
@@ -12,26 +11,22 @@ public class MarkdownParse {
         int currentIndex = 0;
         while(currentIndex < markdown.length()) {
             int nextOpenBracket = markdown.indexOf("[", currentIndex);
+            
             System.out.println(currentIndex);
-
             int nextCloseBracket = markdown.indexOf("]", nextOpenBracket);
-
-            //the second argument is for where to start research, if not provided, search start from index 0
             int openParen = markdown.indexOf("(", nextCloseBracket);
             int closeParen = markdown.indexOf(")", openParen);
-            
-            if (nextCloseBracket + 1 == openParen && closeParen-openParen != 1 && (nextOpenBracket == 0 || markdown.charAt(nextOpenBracket - 1) != '!' )) {
-                int whiteSpace =  markdown.indexOf(" ", openParen);
-                for (int i = openParen; i < closeParen; ++i){
-                    if (whiteSpace == i) {
-                        toReturn.remove(markdown.substring(openParen + 1, closeParen));
-                    }    
-                }
+            String link = markdown.substring(openParen, closeParen);
+
+            if ( (nextCloseBracket == openParen - 1) && (nextOpenBracket == 0 
+            || markdown.charAt(nextOpenBracket - 1) != '!') ) {
+                if (!link.contains(" "))
+                toReturn.add(markdown.substring(openParen + 1, closeParen));
             }
+
             currentIndex = closeParen + 1;
             System.out.println(currentIndex);
         }
-        
         return toReturn;
     }
     public static void main(String[] args) throws IOException {

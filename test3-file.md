@@ -1,2 +1,1 @@
-[link]()
-[link](link.com)
+[link] words (www.something.com)
