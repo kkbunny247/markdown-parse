@@ -1,1 +1,1 @@
-[link](not a link ! ! !)
+[link] words (www.something.com)
