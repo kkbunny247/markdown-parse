@@ -36,13 +36,13 @@ public class MarkdownParseTest {
         assertEquals(MarkdownParse.getLinks(contents), List.of());
     } 
 
-    // @Test
-    // public void getLinks4() throws IOException {
-    //     Path fileName = Path.of("test4-file.md");
-	//     String contents = Files.readString(fileName);
+    @Test
+    public void getLinks4() throws IOException {
+        Path fileName = Path.of("test4-file.md");
+	    String contents = Files.readString(fileName);
 
-    //     assertEquals(MarkdownParse.getLinks(contents), List.of());
-    // } 
+        assertEquals(MarkdownParse.getLinks(contents), List.of());
+    } 
 }
 
 // JUNIT copypaste
