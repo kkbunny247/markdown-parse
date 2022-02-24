@@ -37,17 +37,7 @@ public class MarkdownParse {
                     return toReturn;
                 }
                 else {
-                    String[] split = link.split(" ");
-
-                    if (markdown.charAt(openParen + 1) == ' ' && markdown.charAt(closeParen - 1) == ' ') {
-                        link = split[split.length - 1];
-                    }
-                    if (markdown.charAt(openParen + 1) == ' ') {
-                        link = split[split.length - 1];
-                    }
-                    else if (markdown.charAt(closeParen - 1) == ' ') {
-                        link = split[0];
-                    }
+                    link = link.trim();
                 }
             }
 
