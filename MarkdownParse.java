@@ -13,15 +13,54 @@ public class MarkdownParse {
             int nextOpenBracket = markdown.indexOf("[", currentIndex);
             
             System.out.println(currentIndex);
+
             int nextCloseBracket = markdown.indexOf("]", nextOpenBracket);
             int openParen = markdown.indexOf("(", nextCloseBracket);
             int closeParen = markdown.indexOf(")", openParen);
-            String link = markdown.substring(openParen, closeParen);
 
-            if ( (nextCloseBracket == openParen - 1) && (nextOpenBracket == 0 
-            || markdown.charAt(nextOpenBracket - 1) != '!') ) {
-                if (!link.contains(" "))
-                toReturn.add(markdown.substring(openParen + 1, closeParen));
+            int lastCloseBracket = markdown.lastIndexOf("]", openParen);
+            int lastOpenBracket = markdown.lastIndexOf("]", lastCloseBracket);
+            String link = markdown.substring(openParen + 1, closeParen);
+
+            if (lastCloseBracket < lastOpenBracket) {
+                return toReturn;
+            }
+
+            if (nextOpenBracket == -1 || lastCloseBracket == -1
+                    || closeParen == -1 || openParen == -1) {
+                return toReturn;
+            }
+
+            if (link.contains(" ")) {
+                if (markdown.charAt(openParen + 1) != ' ' || 
+                    markdown.charAt(closeParen - 1) != ' ') {
+                    return toReturn;
+                }
+                else {
+                    String[] split = link.split(" ");
+
+                    if (markdown.charAt(openParen + 1) == ' ' && markdown.charAt(closeParen - 1) == ' ') {
+                        link = split[split.length - 1];
+                    }
+                    if (markdown.charAt(openParen + 1) == ' ') {
+                        link = split[split.length - 1];
+                    }
+                    else if (markdown.charAt(closeParen - 1) == ' ') {
+                        link = split[0];
+                    }
+                }
+            }
+
+            if ( (lastCloseBracket == openParen - 1) && (nextOpenBracket == 0 
+            || markdown.charAt(nextOpenBracket - 1) != '!')) {
+                if (markdown.lastIndexOf("`", lastCloseBracket) != -1) {
+                    if (nextOpenBracket == 0 || markdown.charAt(nextOpenBracket - 1) != '`') {
+                        toReturn.add(link);
+                    }
+                }
+                else {
+                    toReturn.add(link);
+                }
             }
 
             currentIndex = closeParen + 1;
