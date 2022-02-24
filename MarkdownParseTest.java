@@ -42,7 +42,34 @@ public class MarkdownParseTest {
 	    String contents = Files.readString(fileName);
 
         assertEquals(MarkdownParse.getLinks(contents), List.of());
-    } 
+    }
+
+    // ------------ Snippet Tests ---------------
+
+    @Test
+    public void snippetLinks1() throws IOException {
+        Path fileName = Path.of("snippet-1.md");
+	    String contents = Files.readString(fileName);
+
+        assertEquals(MarkdownParse.getLinks(contents), List.of());
+    }
+
+    @Test
+    public void snippetLinks2() throws IOException {
+        Path fileName = Path.of("snippet-2.md");
+	    String contents = Files.readString(fileName);
+
+        assertEquals(MarkdownParse.getLinks(contents), List.of());
+    }
+
+    @Test
+    public void snippetLinks3() throws IOException {
+        Path fileName = Path.of("snippet-3.md");
+	    String contents = Files.readString(fileName);
+
+        assertEquals(MarkdownParse.getLinks(contents), List.of());
+    }
+
 }
 
 // JUNIT copypaste
